@@ -1,19 +1,33 @@
+import 'package:celeto/Resources/commonDatas.dart';
 import 'package:flutter/material.dart';
 import 'package:flick_video_player/flick_video_player.dart';
 import 'package:video_player/video_player.dart';
 import '../Models/categoryhome.dart';
+import '../Resources/config.dart';
 import '../Resources/mytheme.dart';
 import 'bodyViews/body_homepage.dart';
+import 'category_page/cardwidget.dart';
 class MovieDetailsPage extends StatefulWidget {
   const MovieDetailsPage ({super.key, required this.values});
 
   final int values;
 
+
   @override
   State<MovieDetailsPage> createState() => _MovieDetailsPageState();
 }
 
+
 class _MovieDetailsPageState extends State<MovieDetailsPage> {
+
+
+
+  void cardListDatas(){
+    setState(() {
+       commonUtils.cardDatas?.add(CommonCardWidget());
+    });
+  }
+
 
   late FlickManager flickManager;
   String videoUrl = 'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4';
@@ -105,7 +119,7 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
                             ),
                           ),
                           InkWell(
-                            onTap: (){},
+                            onTap: cardListDatas,
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children:  [

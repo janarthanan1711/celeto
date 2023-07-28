@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:celeto/Resources/config.dart';
 import 'package:celeto/Resources/mytheme.dart';
+import 'package:celeto/Views/bodyViews/watchlist.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_profile_picture/flutter_profile_picture.dart';
 import 'package:image_picker/image_picker.dart';
@@ -53,7 +54,12 @@ class _ProfilePageState extends State<ProfilePage> {
                           color:Mytheme.isDark == false ? const Color(0xFF2E4053) : Colors.white,
                           thickness: 2,
                         ),
-                        listTileWidget(heading:  Text('Watchlist',style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,color: Mytheme.isDark == false ? const Color(0xFFCD7F32) : Colors.white),), onTap: (){}),
+                        listTileWidget(heading:  Text('Watchlist',style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,color: Mytheme.isDark == false ? const Color(0xFFCD7F32) : Colors.white),), onTap: (){
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) =>  const WatchListPage()),
+                          );
+                        }),
                          Divider(
                           color:Mytheme.isDark == false ? const Color(0xFF2E4053) : Colors.white,
                           thickness: 2,
