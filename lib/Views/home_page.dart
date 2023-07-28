@@ -1,10 +1,10 @@
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:celeto/Models/actioncategory.dart';
 import 'package:celeto/Models/carouselmodel.dart';
 import 'package:celeto/Models/categoryhome.dart';
 import 'package:celeto/Models/tabbarmodel.dart';
 import 'package:celeto/Views/favorites.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_swiper/flutter_swiper.dart';
 import '../Resources/mytheme.dart';
 import 'bodyViews/body_homepage.dart';
 import 'bodyViews/search_box_page.dart';
@@ -80,18 +80,25 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
             ),
             ),
             ),
-                    background: Swiper(
-                        itemCount: carouselList.length,
-                        itemBuilder: (BuildContext context,int index) {
-                        return Image(image: AssetImage(carouselList[index].images,),fit: BoxFit.fill,);
-                      },
-                      onIndexChanged: (int activeIndex){
-                          setState(() {
-                            _activeIndex = activeIndex;
-                          });
-                      },
-                      autoplay: true,
-                      ),
+
+                    background: CarouselSlider.builder(itemCount: carouselList.length, itemBuilder: (BuildContext context,int index,int pageIndex) {
+                        return Image(image: AssetImage(carouselList[index].images,),
+                          width: MediaQuery.of(context).size.width,
+                          fit: BoxFit.fill,);
+                    },
+
+                        options: CarouselOptions(
+                      autoPlay: true,
+                      height: 400,
+                            viewportFraction: 1.0,
+                            enlargeCenterPage: false,
+                            onPageChanged: (activeIndex, reason) {
+                              setState(() {
+                                _activeIndex = activeIndex;
+
+                              });
+                            }
+                    )),
                 ),
                 actions: [
                   IconButton(
