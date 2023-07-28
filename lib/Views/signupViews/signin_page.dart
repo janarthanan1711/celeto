@@ -17,8 +17,9 @@ class _SigninPageState extends State<SigninPage> {
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
     return Scaffold(
-      body:  Container(
+      body:Container(
           width: screenWidth,
+             height: MediaQuery.of(context).size.height,
              decoration:  const BoxDecoration(
               image: DecorationImage(
                   image: AssetImage('assets/images/movie_background.jpg'),

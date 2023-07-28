@@ -15,16 +15,18 @@ class _WatchListPageState extends State<WatchListPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(leading: InkWell(
+     backgroundColor : Mytheme.isDark == true ? const Color(0xFF2E4053) : const Color(0xFFEAEAEA),
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text('Watchlist',style: TextStyle(color: Mytheme.isDark == true ? Colors.white : Color(0xFF02426f),fontSize: 25,fontWeight: FontWeight.bold),),
+        leading: InkWell(
         onTap: (){
           Navigator.pop(context);
         },
           child: Icon(Icons.arrow_back)),),
-      backgroundColor: Mytheme.isDark == true ? const Color(0xFF2E4053) : const Color(0xFFEAEAEA),
-      body: Container(
+      body: SizedBox(
         width: double.infinity,
         height: 800,
-        color: Colors.yellow,
         child: ListView.builder(
             itemCount: commonUtils.cardDatas!.length,
             itemBuilder: (BuildContext context,int index){
