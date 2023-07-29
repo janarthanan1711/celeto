@@ -12,6 +12,7 @@ class WatchListPage extends StatefulWidget {
 }
 
 class _WatchListPageState extends State<WatchListPage> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,7 +24,7 @@ class _WatchListPageState extends State<WatchListPage> {
         onTap: (){
           Navigator.pop(context);
         },
-          child: Icon(Icons.arrow_back)),),
+          child: const Icon(Icons.arrow_back)),),
       body: SizedBox(
         width: double.infinity,
         height: 800,
@@ -31,7 +32,6 @@ class _WatchListPageState extends State<WatchListPage> {
             itemCount: commonUtils.cardDatas!.length,
             itemBuilder: (BuildContext context,int index){
               return commonUtils.cardDatas![index];
-
         }),
       ),
 

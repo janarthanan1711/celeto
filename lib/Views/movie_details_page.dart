@@ -11,24 +11,17 @@ class MovieDetailsPage extends StatefulWidget {
   const MovieDetailsPage ({super.key, required this.values});
 
   final int values;
-
-
   @override
   State<MovieDetailsPage> createState() => _MovieDetailsPageState();
 }
 
-
 class _MovieDetailsPageState extends State<MovieDetailsPage> {
 
-
-
-  void cardListDatas(){
+   cardListDatas(){
     setState(() {
-       commonUtils.cardDatas?.add(CommonCardWidget());
+       commonUtils.cardDatas?.add(const CommonCardWidget());
     });
   }
-
-
   late FlickManager flickManager;
   String videoUrl = 'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4';
   @override
@@ -136,7 +129,7 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
                             ),
                           ),
                           InkWell(
-                            onTap: (){},
+                            onTap: cardListDatas,
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
