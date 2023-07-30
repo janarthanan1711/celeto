@@ -55,7 +55,6 @@ class _CategoryPageGridState extends State<CategoryPageGrid> {
                         children: [
                           Text(widget.movieName!,style:  TextStyle(color: Mytheme.isDark == true ? Colors.white : Color(0xFF02426f),fontSize: 14,fontWeight: FontWeight.bold),),
                           Text(widget.movieYear!,style:  TextStyle(color: Mytheme.isDark == true ? Colors.white : Color(0xFF02426f),fontSize: 14,fontWeight: FontWeight.bold),),
-
                         ],
                       ),
                     )

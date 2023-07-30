@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import '../../Resources/mytheme.dart';
 import '../movie_details_page.dart';
 
-class WatchListPage extends StatefulWidget {
-  const WatchListPage({super.key});
+class WatchListPage extends StatefulWidget{
+ const  WatchListPage({super.key});
 
   @override
   State<WatchListPage> createState() => _WatchListPageState();

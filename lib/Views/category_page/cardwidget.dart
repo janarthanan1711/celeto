@@ -3,16 +3,25 @@ import 'package:flutter/material.dart';
 
 import '../../Resources/config.dart';
 import '../../Resources/mytheme.dart';
-class CommonCardWidget extends StatefulWidget {
-  const CommonCardWidget({super.key, this.removeWidget});
+class CommonCardWidget extends StatefulWidget with ChangeNotifier{
+   CommonCardWidget({super.key});
 
-  final void Function()? removeWidget;
 
   @override
   State<CommonCardWidget> createState() => _CommonCardWidgetState();
+   removeWidget(){
+     if(commonUtils.cardDatas!.isNotEmpty){
+       commonUtils.cardDatas!.removeLast();
+       notifyListeners();
+
+     }
+
+   }
 }
 
 class _CommonCardWidgetState extends State<CommonCardWidget> {
+
+
 
   @override
   Widget build(BuildContext context) {

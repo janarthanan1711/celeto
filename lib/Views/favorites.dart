@@ -4,6 +4,7 @@ import 'package:celeto/Resources/mytheme.dart';
 import 'package:celeto/Views/bodyViews/downloadspage.dart';
 import 'package:celeto/Views/bodyViews/watchlist.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_profile_picture/flutter_profile_picture.dart';
 import 'package:image_picker/image_picker.dart';
 class ProfilePage extends StatefulWidget {
@@ -14,7 +15,10 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  var _saveImage;
+  // var _saveImage;
+  File? image;
+  Uint8List picked = Uint8List(8);
+  File? imageFile;
   final ImagePicker _chooseImage = ImagePicker();
 
   @override
@@ -124,11 +128,11 @@ class _ProfilePageState extends State<ProfilePage> {
       margin: const EdgeInsets.symmetric(horizontal: 20,vertical: 20),
       child: Column(
         children: [
-          Text(
+          const Text(
             'Choose Profile Photo',
             style: TextStyle(fontSize: 20),
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
           Row(
@@ -138,12 +142,12 @@ class _ProfilePageState extends State<ProfilePage> {
                 setState(() {
                   takePhoto(ImageSource.gallery);
                 });
-              }, icon: Icon(Icons.image), label: Text('Gallery')),
+              }, icon: const Icon(Icons.image), label: const Text('Gallery')),
               ElevatedButton.icon(onPressed: (){
                 setState(() {
                   takePhoto(ImageSource.camera);
                 });
-              }, icon: Icon(Icons.camera_alt_sharp), label: Text('Camera'))
+              }, icon: const Icon(Icons.camera_alt_sharp), label: const Text('Camera'))
             ],
           )
         ],
@@ -151,20 +155,30 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-  void takePhoto(ImageSource source) async {
-    var pickedFile = await _chooseImage.pickImage(source: source,imageQuality: 50);
-    setState(() {
-
-      _saveImage = pickedFile;
-    });
+  Future takePhoto(ImageSource source) async {
+    try {
+      final XFile? image = await ImagePicker().pickImage(source: source, imageQuality: 100,maxHeight: 80,maxWidth: 80);
+      if(image == null) return;
+      imageFile = File(image.path);
+      // setState(() => this.image = imageFile);
+    } on PlatformException catch(e) {
+      print('Failed to pick image: $e');
+    }
   }
+
+  // void takePhoto(ImageSource source) async {
+  //   var pickedFile = await _chooseImage.pickImage(source: source,imageQuality: 50);
+  //   setState(() {
+  //     _saveImage = pickedFile!.readAsBytes();
+  //   });
+  // }
 
   Widget ProfileWidget(){
     return Stack(
       children: [
         CircleAvatar(
           radius: 80.0,
-          backgroundImage: _saveImage == null ?  AssetImage('assets/images/batman.jpg') as ImageProvider : FileImage(File(_saveImage.path)),
+          backgroundImage: image != null ? FileImage(imageFile!) as ImageProvider :const AssetImage('assets/images/batman.jpg') ,
         ),
         Positioned(
           right: 20,
@@ -175,7 +189,7 @@ class _ProfilePageState extends State<ProfilePage> {
                  return bottomSheet();
                 },);
               },
-                child: Icon(Icons.camera_alt_rounded,color: Mytheme.isDark == true ? Color(0xFF02426f) : Color(0xFF02426f),size: 35.0,)))
+                child: Icon(Icons.camera_alt_rounded,color: Mytheme.isDark == true ? const Color(0xFF02426f) : const Color(0xFF02426f),size: 35.0,)))
       ],
     );
 

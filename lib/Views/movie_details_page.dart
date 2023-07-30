@@ -19,7 +19,7 @@ class _MovieDetailsPageState extends State<MovieDetailsPage> {
 
    cardListDatas(){
     setState(() {
-       commonUtils.cardDatas?.add(const CommonCardWidget());
+       commonUtils.cardDatas?.add(CommonCardWidget());
     });
   }
   late FlickManager flickManager;
