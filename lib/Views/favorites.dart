@@ -1,8 +1,12 @@
 import 'dart:io';
 import 'package:celeto/Resources/config.dart';
 import 'package:celeto/Resources/mytheme.dart';
+import 'package:celeto/Views/bodyViews/accountspage.dart';
 import 'package:celeto/Views/bodyViews/downloadspage.dart';
+import 'package:celeto/Views/bodyViews/settingspage.dart';
 import 'package:celeto/Views/bodyViews/watchlist.dart';
+import 'package:celeto/Views/signupViews/signin_page.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_profile_picture/flutter_profile_picture.dart';
@@ -15,11 +19,13 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
-  // var _saveImage;
+  var _saveImage;
+  var selectedImagePath = '';
   File? image;
-  Uint8List picked = Uint8List(8);
   File? imageFile;
   final ImagePicker _chooseImage = ImagePicker();
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +39,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children:  [
                   const SizedBox(height: 10,),
-                  ProfileWidget(),
+                  profileWidget(),
                  // InkWell(
                  //   onTap: (){},
                  //   child: const ProfilePicture(name: "Jana",
@@ -49,12 +55,21 @@ class _ProfilePageState extends State<ProfilePage> {
                     height: 650,
                     child: Column(
                       children: [
-                        listTileWidget(heading:  Text('Account',style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,color: Mytheme.isDark == false ? const Color(0xFFCD7F32) : Colors.white),), onTap: (){}),
+                        listTileWidget(heading:  Text('Account',style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,color: Mytheme.isDark == false ? const Color(0xFFCD7F32) : Colors.white),), onTap: (){
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) =>  const AccountsPage()),
+                          );
+                        }),
                          Divider(
                           color:Mytheme.isDark == false ? const Color(0xFF2E4053) : Colors.white,
                           thickness: 2,
                         ),
-                        listTileWidget(heading:  Text('App Settings',style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,color: Mytheme.isDark == false ? const Color(0xFFCD7F32) : Colors.white),), onTap: (){}),
+                        listTileWidget(heading:  Text('App Settings',style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,color: Mytheme.isDark == false ? const Color(0xFFCD7F32) : Colors.white),), onTap: (){
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) =>   const SettingPage()));
+                        }),
                          Divider(
                           color:Mytheme.isDark == false ? const Color(0xFF2E4053) : Colors.white,
                           thickness: 2,
@@ -85,7 +100,8 @@ class _ProfilePageState extends State<ProfilePage> {
                           thickness: 2,
                         ),
                         listTileWidget(heading:  Text('Logout',style: TextStyle(fontSize: 20,fontWeight: FontWeight.bold,color: Mytheme.isDark == false ? const Color(0xFFCD7F32) : Colors.white),), onTap: (){
-                          Navigator.pop(context);
+                          // Navigator.pop(context);
+                          ShowLogoutDialog();
                         }),
                       ],
                     ),
@@ -111,6 +127,46 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
+  Future<void> ShowLogoutDialog() async{
+     return showDialog<void>(context: context,
+       barrierDismissible: false,
+       builder: (BuildContext context){
+          return AlertDialog(
+            titlePadding: EdgeInsets.symmetric(horizontal: 100,vertical: 10),
+            title: CircleAvatar(
+              radius: 35,
+              backgroundImage: Mytheme.isDark == true ? AssetImage('assets/images/logout_orange.jpg') : AssetImage('assets/images/logout_blue.jpg'),
+            ),
+            content: const SingleChildScrollView(
+              child: ListBody(
+                children: <Widget>[
+                  Text('Are you sure want to Logout?',style: TextStyle(fontSize: 20),),
+                ],
+              ),
+            ),
+            actions: <Widget>[
+              TextButton(
+                child: const Text('No'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              TextButton(
+                child: const Text('Yes'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) =>   const SigninPage()));
+                },
+              ),
+            ],
+          );
+       }
+
+     );
+  }
+
 
   Widget listTileWidget({required heading,required onTap}){
     return ListTile(
@@ -123,13 +179,13 @@ class _ProfilePageState extends State<ProfilePage> {
 
   Widget bottomSheet(){
     return Container(
-      height: 100.0,
+      height: 200.0,
       width: MediaQuery.of(context).size.width,
       margin: const EdgeInsets.symmetric(horizontal: 20,vertical: 20),
       child: Column(
         children: [
           const Text(
-            'Choose Profile Photo',
+            'Choose Profile Photo From',
             style: TextStyle(fontSize: 20),
           ),
           const SizedBox(
@@ -138,16 +194,69 @@ class _ProfilePageState extends State<ProfilePage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              ElevatedButton.icon(onPressed: (){
-                setState(() {
-                  takePhoto(ImageSource.gallery);
-                });
-              }, icon: const Icon(Icons.image), label: const Text('Gallery')),
-              ElevatedButton.icon(onPressed: (){
-                setState(() {
-                  takePhoto(ImageSource.camera);
-                });
-              }, icon: const Icon(Icons.camera_alt_sharp), label: const Text('Camera'))
+            GestureDetector(
+              onTap: () async {
+                selectedImagePath = await selectImageFromCamera();
+                if(selectedImagePath != ''){
+                   Navigator.pop(context);
+                   setState(() {});
+                }else{
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                    content: Text("No Image Selected !"),
+                  ));
+                }
+              },
+              child: Card(
+              elevation: 5,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Column(
+                  children: [
+                    Image.asset(
+                      'assets/images/camera.png',
+                      height: 60,
+                      width: 60,
+                    ),
+                    const Text('Camera'),
+                  ],
+                ),
+              ),
+              ),
+            ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Text('OR',style: TextStyle(
+                  fontSize: 25,
+                  color: Mytheme.isDark == true ? const Color(0xFF2E4053) : const Color(0xFFEAEAEA)
+                ),),
+              ),
+      GestureDetector(
+        onTap: () async {
+          selectedImagePath = await selectImageFromGallery();
+          if(selectedImagePath != ''){
+            Navigator.pop(context);
+            setState(() {});
+          } else{
+            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('No Image Selected !')));
+          }
+        },
+        child: Card(
+          elevation: 5,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              children: [
+                Image.asset(
+                  'assets/images/gallery.png',
+                  height: 60,
+                  width: 60,
+                ),
+                const Text('Gallery'),
+              ],
+            ),
+          ),
+        ),
+      )
             ],
           )
         ],
@@ -155,33 +264,18 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-  Future takePhoto(ImageSource source) async {
-    try {
-      final XFile? image = await ImagePicker().pickImage(source: source, imageQuality: 100,maxHeight: 80,maxWidth: 80);
-      if(image == null) return;
-      imageFile = File(image.path);
-      // setState(() => this.image = imageFile);
-    } on PlatformException catch(e) {
-      print('Failed to pick image: $e');
-    }
-  }
 
-  // void takePhoto(ImageSource source) async {
-  //   var pickedFile = await _chooseImage.pickImage(source: source,imageQuality: 50);
-  //   setState(() {
-  //     _saveImage = pickedFile!.readAsBytes();
-  //   });
-  // }
 
-  Widget ProfileWidget(){
+  Widget profileWidget(){
     return Stack(
       children: [
         CircleAvatar(
           radius: 80.0,
-          backgroundImage: image != null ? FileImage(imageFile!) as ImageProvider :const AssetImage('assets/images/batman.jpg') ,
+          backgroundImage: selectedImagePath  != '' ? FileImage(File(selectedImagePath))  : const AssetImage('assets/images/batman3.jpg') as ImageProvider,
+          // backgroundImage: image != null ? FileImage(imageFile!) as ImageProvider :const AssetImage('assets/images/batman.jpg') ,
         ),
         Positioned(
-          right: 20,
+            right: 20,
             bottom: 20,
             child: InkWell(
               onTap: (){
@@ -192,7 +286,22 @@ class _ProfilePageState extends State<ProfilePage> {
                 child: Icon(Icons.camera_alt_rounded,color: Mytheme.isDark == true ? const Color(0xFF02426f) : const Color(0xFF02426f),size: 35.0,)))
       ],
     );
-
+  }
+  selectImageFromGallery() async {
+    XFile? file = await ImagePicker().pickImage(source: ImageSource.gallery,imageQuality: 20);
+    if(file != null){
+      return file.path;
+    } else {
+      return '';
+    }
+  }
+  selectImageFromCamera() async{
+    XFile? file = await ImagePicker().pickImage(source: ImageSource.camera, imageQuality: 10);
+    if(file != null){
+      return file.path;
+    }else{
+      return '';
+    }
   }
 
 }

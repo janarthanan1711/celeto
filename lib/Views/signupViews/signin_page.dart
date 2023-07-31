@@ -160,7 +160,7 @@ class _SigninPageState extends State<SigninPage> {
                            // if(_formKey.currentState!.validate()){
                              Navigator.push(
                                context,
-                               MaterialPageRoute(builder: (context) =>  const MainPage()),
+                               MaterialPageRoute(builder: (context) =>   const MainPage()),
                              );
                            // }
                            });
@@ -192,12 +192,10 @@ class _SigninPageState extends State<SigninPage> {
                     alignment: Alignment.topRight,
                       child: TextButton(onPressed: (){
                         setState(() {
-
                             Navigator.push(
                               context,
                               MaterialPageRoute(builder: (context) =>  const SignupPage()),
                             );
-
                         });
                       }, child: const Text('Signup',style:TextStyle(color: Color(0xFFCD7F32),fontSize: 24),))),
                 )
