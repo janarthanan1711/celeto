@@ -8,8 +8,6 @@ import '../movie_details_page.dart';
 class BodyHome extends StatefulWidget {
   const BodyHome ({super.key,this.categoryNames,this.moreButton,this.imageFunction, required this.width, required this.height});
 
-
-
   @override
   State<BodyHome> createState() => _BodyHomeState();
   final String? categoryNames;
@@ -65,7 +63,8 @@ class _BodyHomeState extends State<BodyHome> {
                       ),
                     ),
                   );
-    }        ),
+                 }
+                ),
               ),
             )
       ],

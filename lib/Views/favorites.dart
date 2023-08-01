@@ -132,27 +132,28 @@ class _ProfilePageState extends State<ProfilePage> {
        barrierDismissible: false,
        builder: (BuildContext context){
           return AlertDialog(
+            backgroundColor:  Mytheme.isDark == true ? Colors.white : Colors.black,
             titlePadding: EdgeInsets.symmetric(horizontal: 100,vertical: 10),
             title: CircleAvatar(
               radius: 35,
               backgroundImage: Mytheme.isDark == true ? AssetImage('assets/images/logout_orange.jpg') : AssetImage('assets/images/logout_blue.jpg'),
             ),
-            content: const SingleChildScrollView(
+            content:  SingleChildScrollView(
               child: ListBody(
                 children: <Widget>[
-                  Text('Are you sure want to Logout?',style: TextStyle(fontSize: 20),),
+                  Text('Are you sure want to Logout?',style: TextStyle(fontSize: 20,color: Mytheme.isDark == true ? Colors.black : Colors.white),),
                 ],
               ),
             ),
             actions: <Widget>[
               TextButton(
-                child: const Text('No'),
+                child:  Text('No',style: TextStyle(fontSize: 20,color: Mytheme.isDark == true ? Colors.deepOrange : Colors.blue)),
                 onPressed: () {
                   Navigator.of(context).pop();
                 },
               ),
               TextButton(
-                child: const Text('Yes'),
+                child:  Text('Yes',style: TextStyle(fontSize: 20,color: Mytheme.isDark == true ? Colors.deepOrange : Colors.blue)),
                 onPressed: () {
                   Navigator.of(context).pop();
                   Navigator.push(

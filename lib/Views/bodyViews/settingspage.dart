@@ -17,7 +17,7 @@ class _SettingPageState extends State<SettingPage> {
         backgroundColor: Mytheme.isDark == true ? const Color(0xFF2E4053) : const Color(0xFFEAEAEA),
         appBar: AppBar(
           centerTitle: true,
-          title: Text('Settings',style: TextStyle(color: Mytheme.isDark == true ? Colors.white : Color(0xFF02426f),fontSize: 25,fontWeight: FontWeight.bold),),
+          title: Text('Settings',style: TextStyle(color: Mytheme.isDark == true ? Colors.white : const Color(0xFF02426f),fontSize: 25,fontWeight: FontWeight.bold),),
           leading: InkWell(
               onTap: (){
                 Navigator.pop(context);
@@ -33,10 +33,10 @@ class _SettingPageState extends State<SettingPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('Streaming over wifi only',style: TextStyle(color: Mytheme.isDark == true ? Color(0xFFCD7F32) : Color(0xFF2E4053),fontSize: 20),),
+                    Text('Streaming over wifi only',style: TextStyle(color: Mytheme.isDark == true ? const Color(0xFFCD7F32) : const Color(0xFF2E4053),fontSize: 20),),
                     Switch(
                       // thumb color (round icon)
-                      activeColor: Color(0xFFCD7F32),
+                      activeColor: const Color(0xFFCD7F32),
                       activeTrackColor: Colors.cyan,
                       inactiveThumbColor: Colors.blueGrey.shade600,
                       inactiveTrackColor: Colors.grey.shade400,
@@ -48,15 +48,15 @@ class _SettingPageState extends State<SettingPage> {
                     ),
                   ],
                 ),
-                SizedBox(height: 20,),
+                const SizedBox(height: 20,),
                 Text('Downloads',style: TextStyle(color: Mytheme.isDark == true ? Colors.white : const Color(0xFFCD7F32),fontSize: 25),),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('Download over wifi only',style: TextStyle(color: Mytheme.isDark == true ? Color(0xFFCD7F32) : Color(0xFF2E4053),fontSize: 20),),
+                    Text('Download over wifi only',style: TextStyle(color: Mytheme.isDark == true ? const Color(0xFFCD7F32) : const Color(0xFF2E4053),fontSize: 20),),
                     Switch(
                       // thumb color (round icon)
-                      activeColor: Color(0xFFCD7F32),
+                      activeColor: const Color(0xFFCD7F32),
                       activeTrackColor: Colors.cyan,
                       inactiveThumbColor: Colors.blueGrey.shade600,
                       inactiveTrackColor: Colors.grey.shade400,
@@ -68,30 +68,31 @@ class _SettingPageState extends State<SettingPage> {
                     ),
                   ],
                 ),
-                SizedBox(height: 20,),
+                const SizedBox(height: 20,),
                 Text('Language',style: TextStyle(color: Mytheme.isDark == true ? Colors.white : const Color(0xFFCD7F32),fontSize: 25),),
+                const SizedBox(height: 5,),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('Display Language',style: TextStyle(color: Mytheme.isDark == true ? Color(0xFFCD7F32) : Color(0xFF2E4053),fontSize: 20),),
-                    TextButton(onPressed: (){}, child: Text('Current Language'))
+                    Text('Display Language',style: TextStyle(color: Mytheme.isDark == true ? const Color(0xFFCD7F32) : const Color(0xFF2E4053),fontSize: 20),),
+                    TextButton(onPressed: (){}, child: const Text('Current Language'))
                   ],
                 ),
-                SizedBox(height: 20,),
+                const SizedBox(height: 20,),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('Search History',style: TextStyle(color: Mytheme.isDark == true ? Color(0xFFCD7F32) : Color(0xFF2E4053),fontSize: 20),),
-                    TextButton(onPressed: (){}, child: Text('Clear'))
+                    Text('Search History',style: TextStyle(color: Mytheme.isDark == true ? const Color(0xFFCD7F32) : const Color(0xFF2E4053),fontSize: 20),),
+                    TextButton(onPressed: (){}, child: const Text('Clear'))
                   ],
                 ),
-                SizedBox(height: 20,),
+                const SizedBox(height: 20,),
 
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('Reset to Default',style: TextStyle(color: Mytheme.isDark == true ? Color(0xFFCD7F32) : Color(0xFF2E4053),fontSize: 20),),
-                    TextButton(onPressed: (){}, child: Text('Default Setting'))
+                    Text('Reset to Default',style: TextStyle(color: Mytheme.isDark == true ? const Color(0xFFCD7F32) : const Color(0xFF2E4053),fontSize: 20),),
+                    TextButton(onPressed: (){}, child: const Text('Default Setting'))
                   ],
                 )
               ],

@@ -19,6 +19,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin{
 
+  ScrollController scrollController = ScrollController();
   int _activeIndex = 0;
   late TabController _tabController;
   List TabIcons=[
@@ -55,7 +56,9 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
                 leading: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: InkWell(
-                    onTap: (){},
+                    onTap: (){
+                      scrollController.animateTo(0, duration: const Duration(milliseconds: 3000), curve: Curves.fastOutSlowIn);
+                    },
                     child: const CircleAvatar(
                       radius: 40,
                       backgroundImage: AssetImage('assets/images/clogo.jpg'),
@@ -158,6 +161,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
             SizedBox(
               height: double.maxFinite,
               child: ListView.builder(
+                controller: scrollController,
                 itemCount: categoryHomeList.length,
                   itemBuilder: (BuildContext context,int index){
                   return  Column(
@@ -182,6 +186,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
               SizedBox(
                 height: 580,
                 child: GridView.builder(
+                    controller: scrollController,
                     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 3, // number of items in each row
                       mainAxisSpacing: 8.0, // spacing between rows
@@ -224,6 +229,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
               SizedBox(
                 height: 580,
                 child: GridView.builder(
+                    controller: scrollController,
                     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 3, // number of items in each row
                       mainAxisSpacing: 8.0, // spacing between rows
@@ -266,6 +272,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
               SizedBox(
                 height: 580,
                 child: GridView.builder(
+                    controller: scrollController,
                     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 3, // number of items in each row
                       mainAxisSpacing: 8.0, // spacing between rows
@@ -308,6 +315,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
               SizedBox(
                 height: 580,
                 child: GridView.builder(
+                    controller: scrollController,
                     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 3, // number of items in each row
                       mainAxisSpacing: 8.0, // spacing between rows
@@ -350,6 +358,7 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
               SizedBox(
                 height: 580,
                 child: GridView.builder(
+                    controller: scrollController,
                     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 3, // number of items in each row
                       mainAxisSpacing: 8.0, // spacing between rows

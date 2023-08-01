@@ -1,16 +1,20 @@
+import 'package:celeto/Models/moviepagemodel.dart';
 import 'package:flutter/material.dart';
 class CustomSearchDelegate extends SearchDelegate {
   // Demo list to show querying
-  List<String> searchTerms = [
-    "Apple",
-    "Banana",
-    "Mango",
-    "Pear",
-    "Watermelons",
-    "Blueberries",
-    "Pineapples",
-    "Strawberries"
-  ];
+  // List<String> searchTerms = [
+  //   "Apple",
+  //   "Banana",
+  //   "Mango",
+  //   "Pear",
+  //   "Watermelons",
+  //   "Blueberries",
+  //   "Pineapples",
+  //   "Strawberries"
+  // ];
+   List<String> searchTerms =
+     moviepageDatas.map((e) => e['movieNames'].toString()).toList();
+
 
   // first overwrite to
   // clear the search text
