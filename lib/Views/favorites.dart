@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:avatar_glow/avatar_glow.dart';
 import 'package:celeto/Resources/config.dart';
 import 'package:celeto/Resources/mytheme.dart';
 import 'package:celeto/Views/bodyViews/accountspage.dart';
@@ -39,7 +40,9 @@ class _ProfilePageState extends State<ProfilePage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children:  [
                   const SizedBox(height: 10,),
-                  profileWidget(),
+                  AvatarGlow(endRadius: 90,
+                  glowColor: Mytheme.isDark == true ? Color(0xFFCD7F32) : Colors.blue,
+                  child: profileWidget()),
                  // InkWell(
                  //   onTap: (){},
                  //   child: const ProfilePicture(name: "Jana",
