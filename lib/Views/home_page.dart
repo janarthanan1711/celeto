@@ -23,14 +23,12 @@ class _HomePageState extends State<HomePage> with SingleTickerProviderStateMixin
   int _activeIndex = 0;
   late TabController _tabController;
   List TabIcons=[
-
     const Text('🤗',style: TextStyle(fontSize: 30),),
     const Text('😡',style: TextStyle(fontSize: 30),),
     const Text('🤣',style: TextStyle(fontSize: 30),),
     const Text('❤️',style: TextStyle(fontSize: 30),),
     const Text('😎',style: TextStyle(fontSize: 30),),
     const Text('🫣',style: TextStyle(fontSize: 30),),
-
   ];
   @override
   void initState() {
